@@ -1,0 +1,22 @@
+.editor-operate   a{
+  margin-right: 10px;
+  cursor: pointer;
+}
+del {
+	text-decoration: none;
+	color: #b30000;
+	background: #fadad7;
+}
+ins {
+	background: #eaf2c2;
+	color: #406619;
+	text-decoration: none;
+}
+
+pre{
+  margin-top: 0;
+}
+.editor-diff{
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+  font-size: 12px;
+}

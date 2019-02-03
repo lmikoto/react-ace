@@ -1,25 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import AceEditor from './ace-editor';
 import './App.css';
 
 class App extends Component {
   render() {
+    const editorProps = {
+      showDiff: true,
+      autoChange: false,
+      height: 500,
+      value: 'const a = 1;\nconst b = 2;\n\n\nconst c= 2;'
+    }
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <AceEditor {...editorProps} />
       </div>
     );
   }
