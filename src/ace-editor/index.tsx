@@ -22,6 +22,7 @@ interface DiffInfo{
    added?: boolean;
    removed?: boolean;
    value?:string;
+   count:number;
 }
 
 interface State{
@@ -143,11 +144,14 @@ class AceEditor extends Component<Props,State> {
   handleDiff = () => {
     const { isDiff } = this.state;
     const diffInfo = Diff.diffLines(this.oldValue, this.editor.getValue());
+    console.log('old---',this.oldValue);
+    console.log('new---', this.editor.getValue());
+    console.log('diff---',diffInfo);
     this.setState({isDiff: !isDiff,diffInfo})
   }
 
   renderDiff = () => {
-    const { isDiff,diffInfo }:State = this.state;
+    const { diffInfo }:State = this.state;
     const renderNode = [];
     for (var i=0; i < diffInfo.length; i++) {
       if (diffInfo[i].added && diffInfo[i + 1] && diffInfo[i + 1].removed) {
@@ -155,15 +159,22 @@ class AceEditor extends Component<Props,State> {
         diffInfo[i] = diffInfo[i + 1];
         diffInfo[i + 1] = swap;
       }
-      if (diffInfo[i].removed) {
-        renderNode.push(<del key={i}>{diffInfo[i].value}</del>);
-      } else if (diffInfo[i].added) {
-        renderNode.push(<ins key={i}>{diffInfo[i].value}</ins>);
-      } else {
-        renderNode.push(<Fragment key={i}>{diffInfo[i].value}</Fragment>);
-      }
+      const childNode:any = [];
+      const lineValue = diffInfo[i].value || '';
+      lineValue.split('\n').forEach((v, k, splitArray) => {
+        if(k < diffInfo[i].count){
+          if (diffInfo[i].removed) {
+            childNode.push(<div key={`${i}-${k}`} className="diff-line-del"><del>{v}</del></div>);
+          } else if (diffInfo[i].added) {
+            childNode.push(<div key={`${i}-${k}`} className="diff-line-ins"><ins>{v}</ins></div>);
+          } else {
+            childNode.push(<div key={`${i}-${k}`} className="diff-line-old">{v}</div>);
+          }
+        }
+      });
+      renderNode.push(childNode);
     }
-    return <pre>{renderNode}</pre>;
+    return <pre><code>{renderNode}</code></pre>;
   }
 
   bindEvents = (onEvents:any) => {

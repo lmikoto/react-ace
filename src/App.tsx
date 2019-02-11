@@ -7,7 +7,7 @@ class App extends Component {
     const editorProps = {
       showDiff: true,
       autoChange: false,
-      height: 500,
+      height: 400,
       value: 'const a = 1;\nconst b = 2;\n\n\nconst c= 2;'
     }
     return (

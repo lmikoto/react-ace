@@ -1,22 +1,58 @@
-.editor-operate   a{
+.editor-operate a {
   margin-right: 10px;
   cursor: pointer;
 }
 del {
-	text-decoration: none;
-	color: #b30000;
-	background: #fadad7;
+  color: #b30000;
+  text-decoration: none;
+  background: #fadad7;
+}
+.diff-line-del {
+  color: #b30000;
+  text-decoration: none;
+  background: #fadad7;
 }
 ins {
-	background: #eaf2c2;
-	color: #406619;
-	text-decoration: none;
+  color: #406619;
+  text-decoration: none;
+  background: #eaf2c2;
 }
-
-pre{
+.diff-line-ins {
+  color: #406619;
+  text-decoration: none;
+  background: #eaf2c2;
+}
+pre {
   margin-top: 0;
 }
-.editor-diff{
-  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro, monospace;
+.editor-diff {
+  overflow: auto;
   font-size: 12px;
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, source-code-pro,
+    monospace;
+}
+pre code {
+  line-height: 16px;
+  counter-reset: code-line-num;
+}
+pre code .diff-line-ins:before,
+pre code .diff-line-old:before {
+  display: inline-block;
+  width: 9px;
+  margin-right: 4px;
+  padding-right: 13px;
+  padding-left: 19px;
+  background: #f0f0f0;
+  counter-increment: code-line-num;
+  content: counter(code-line-num);
+}
+pre code .diff-line-del:before {
+  display: inline-block;
+  width: 9px;
+  margin-right: 4px;
+  padding-right: 13px;
+  padding-left: 19px;
+  font-size: 16px;
+  background: #f0f0f0;
+  content: "";
 }
